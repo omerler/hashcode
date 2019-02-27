@@ -8,11 +8,11 @@ import              pickle
 import              PIL
 import              keras
 import              scipy
-import              sckitlearn
+import              sklearn
 import              pyaudio
 import              plotly
 
-# --------------------------------------- Imports -------------------------------------
+# --------------------------------------- Class -------------------------------------
 
 class Data:
     def __init__(self, source_file, sep=' ', output=None):
@@ -43,6 +43,8 @@ class Data:
         with open(output_path if output_path else self._output_path, 'w') as f:
             for data_line in output_data if output_data else self._output_data:
                 f.write(data_line + '\n')
+
+# --------------------------------------- Run -------------------------------------
         
 if __name__ == '__main__':
     source_file = 'data_example.txt'
