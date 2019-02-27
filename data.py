@@ -1,6 +1,18 @@
-import numpy as np
-import pandas as pd
-import matplotlib.pyplot as plt
+
+# --------------------------------------- Imports -------------------------------------
+
+import              numpy as np
+import              pandas as pd
+import              matplotlib.pyplot as plt
+import              pickle
+import              PIL
+import              keras
+import              scipy
+import              sckitlearn
+import              pyaudio
+import              plotly
+
+# --------------------------------------- Imports -------------------------------------
 
 class Data:
     def __init__(self, source_file, sep=' ', output=None):
