@@ -9,7 +9,7 @@ class Slide:
             self._tags = s1.tags.union(s2.tags)
             self._n = 2
             self._indices = [s1.i,s2.i]
-            self._vec = s1.get_vec() & s2.get_vec()
+            self._vec = s1.get_vec() | s2.get_vec()
         else:
             assert (s1 is not None)
             self._tags = s1.tags
