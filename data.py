@@ -32,7 +32,7 @@ class Data:
             self._output_path = output
         else:
             cur_time = datetime.datetime.fromtimestamp(time.time())
-            self._output_path = 'output_{}'.format(cur_time.strftime('%H:%M:%S'))
+            self._output_path = 'output_{}'.format(cur_time.strftime('%H_%M_%S'))
         self._output_data = []
         
     def _init_input(self, source_file):
@@ -63,7 +63,7 @@ class Data:
         lines.append(str(len(solution)))
         for slide in solution:
             indices = slide.get_indices()
-            lines.append(' '.join(indices))
+            lines.append(' '.join([str(n) for n in indices]))
         with open(output_path if output_path else self._output_path, 'w') as f:
             f.writelines(lines)
 
