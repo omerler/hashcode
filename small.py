@@ -74,4 +74,7 @@ if __name__ == '__main__':
     s2 = naive.make_slides_of_horz_img(data.get_h())
     slides = s1 + s2
     new_score = score_all(slides)
-    assert new_score == score_all_vec(slides)
+    print new_score
+    # print score_all_vec(slides)
+#    data.dump(slides)
+    run_sa(slides, data)
