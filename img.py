@@ -1,6 +1,9 @@
 from data import *
 from slide import *
 
+H = 'H'
+V = 'V'
+
 class Img:
     def __init__(self, orientation, tags):
         assert orientation in (H, V) and type(tags) == set

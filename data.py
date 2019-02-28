@@ -2,17 +2,17 @@
 
 # --------------------------------------- Imports -------------------------------------
 
-import                                          numpy as np
-import                                          pandas as pd
-import                                          matplotlib.pyplot as plt
-from matplotlib.ticker import                   MaxNLocator
-import                                          pickle
-import                                          PIL
-import                                          scipy
-import                                          sklearn
-import                                          pyaudio
-import                                          plotly
-import                                          time, datetime
+# import                                          numpy as np
+# import                                          pandas as pd
+# import                                          matplotlib.pyplot as plt
+# from matplotlib.ticker import                   MaxNLocator
+# import                                          pickle
+# import                                          PIL
+# import                                          scipy
+# import                                          sklearn
+# import                                          pyaudio
+# import                                          plotly
+# import                                          time, datetime
 # import                                          keras
 import copy
 from slide import *
@@ -23,7 +23,7 @@ V = 'V'
             
 class Data:
     def __init__(self, source_file, sep=' ', output=None):
-        self._sep = sep
+        # self._sep = sep
         self._verticals = []
         self._orizontals = []
         self._init_input(source_file)
@@ -35,7 +35,7 @@ class Data:
         self.h_images = []
         with open(source_file, 'r') as f:
             for i, line in enumerate(f.readlines()):
-                data = ' '.split(line)
+                data = line.split()
                 if not i:
                     self.num_images = int(line[0])
                     continue
@@ -99,9 +99,9 @@ class Data:
 
 # --------------------------------------- Run -------------------------------------
         
-# if __name__ == '__main__':
-#     source_file = 'data_example.txt'
-#     data = Data(source_file)
+if __name__ == '__main__':
+    source_file = 'a_example.txt'
+    data = Data(source_file)
 #     print(data.get(1, 1))
 #     print(data.get(2, 1))
 #     data.show(title='our data is beautiful', save=True)

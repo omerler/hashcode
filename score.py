@@ -17,4 +17,3 @@ class score:
         for i in range(len(solution)-1):
             total_score += self.score_two(solution[i], solution[i+1])
         return total_score
-    
