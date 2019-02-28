@@ -6,17 +6,22 @@ def combine_vertical_imgs_naive(vert_imgs):
     """ Get a list of vertical_imgs and return a list of slides"""
     slides = []
     for i in range(len(vert_imgs)/2):
-        slides.append(Slide(vert_imgs(2*i),vert_imgs(2*i+1)))
+        slides.append(Slide(vert_imgs[2*i],vert_imgs[2*i+1]))
     return slides
 def combine_vertical_imgs_diver(vert_imgs):
     slides = []
     while len(vert_imgs)>0:
         cur_img = vert_imgs.pop(0)
+        flag = True
         for img in vert_imgs:
-            if img.tags.intersection(img0.tags) == set():
+            if img.tags.intersection(cur_img.tags) == set():
                 slides.append(Slide(cur_img,img))
                 vert_imgs.remove(img)
+                flag = False
                 break
+        if flag:
+            img = vert_imgs.pop(0)
+            slides.append(Slide(cur_img,img))
     return slides
 def make_slides_of_horz_img(horz_imgs):
     slides = []
