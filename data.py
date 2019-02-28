@@ -14,18 +14,66 @@ import                                          pyaudio
 import                                          plotly
 import                                          time, datetime
 # import                                          keras
-
+import copy
 # --------------------------------------- Class -------------------------------------
+H = 'H'
+V = 'V'
 
+class Img:
+    def __init__(self, orientation, tags):
+        assert orientation in (H, V) and type(tags) == set
+        self.orientation = orientation
+        self.tags = tags
+        
+    def orientation(self):
+        return self.orientation
+    
+    def tags(self):
+        return copy.copy(self.tags)
+    
+class Slide:
+    def __init__(self, s1, s2=None):
+        if s2 is not None:
+            assert s1.orientation == s2.orientation == V
+            self._tags = s1.tags.union(s2.tags)
+            self._n = 2
+        else:
+            assert (s1 is not None)
+            self._tags = s1.tags
+            self._n = 1
+        self._s1 = s1
+        self._s2 = s2
+
+    def get_imgs(self):
+        return (self._s1, self._s2)
+
+    def get_img1(self):
+        return self._s1
+    
+    def get_img2(self):
+        return self._s2
+    
+    def get_tags(self):
+        return copy.copy(self._tags)
+    
+    def num_imgs(self):
+        return self._n
+        
 
 class Data:
     def __init__(self, source_file, sep=' ', output=None):
         self._sep = sep
+        self._verticals = []
+        self._orizontals = []
         self._init_input(source_file)
         self._output_path = output
         self._output_data = []
         
     def _init_input(self, source_file):
+        self.images
+        with open(source_file, 'r') as f:
+            for line in f.readlines():
+                
         self._data_array = pd.read_csv(source_file, sep=self._sep, header=None).values
         
     def show(self, title='', save=False, show_values=False):
