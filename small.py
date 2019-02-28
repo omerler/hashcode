@@ -1,10 +1,15 @@
 import data
+import slide
+from score import *
 import random
+import img
+import naive
+import numpy as np
 SA_RANDOM_ITERATIONS = 50
 Tmin = 0.001
 alpha = 0.995
 initial_p = 0.95
-erez
+
 def probability(T, energy):
     debug = np.exp(-energy / T)
     return random.random() < np.exp(-energy/T)
@@ -15,16 +20,17 @@ def replace_two_slides(slides,slide_ind_x, slide_ind_y):
     slides[slide_ind_y] = tmp_slide
 
 def switch_random_slides(slides, T):
-    slide_ind_x = find_index(slides, random.randint(0, 80000 - 1))
-    slide_ind_y = find_index(slides, random.randint(0, 80000 - 1))
-    currentscore = score_two(slide_ind_x -1,slide_ind_x)
-    currentscore += score_two(slide_ind_x, slide_ind_x +1)
-    currentscore += score_two(slide_ind_y -1,slide_ind_y)
-    currentscore += score_two(slide_ind_y, slide_ind_y +1)
-    newscore =  score_two(slide_ind_x -1,slide_ind_y)
-    newscore += score_two(slide_ind_y, slide_ind_x + 1)
-    newscore +=  score_two(slide_ind_y -1,slide_ind_x)
-    newscore += score_two(slide_ind_x, slide_ind_y + 1)
+    slide_ind_x = random.randint(0, 80000 - 1)
+    slide_ind_y = random.randint(0, 80000 - 1)
+    s = score()
+    currentscore = s.score_two(slides[slide_ind_x -1],slides[slide_ind_x])
+    currentscore += s.score_two(slides[slide_ind_x], slides[slide_ind_x +1])
+    currentscore += s.score_two(slides[slide_ind_y -1],slides[slide_ind_y])
+    currentscore += s.score_two(slides[slide_ind_y], slides[slide_ind_y +1])
+    newscore     =  s.score_two(slides[slide_ind_x -1],slides[slide_ind_y])
+    newscore     += s.score_two(slides[slide_ind_y], slides[slide_ind_x + 1])
+    newscore     +=  s.score_two(slides[slide_ind_y -1],slides[slide_ind_x])
+    newscore     += s.score_two(slides[slide_ind_x], slides[slide_ind_y + 1])
     if newscore > currentscore:
         replace_two_slides(slides,slide_ind_x,slide_ind_y);
         return
@@ -42,7 +48,13 @@ def run_sa(slides):
         T = T0
         random.shuffle(slides)
         while T > Tmin:
-            switch_random_unit(racks, T, connection_array, price)
+            switch_random_slides(slides, T)
             T *= alpha
 
 if __name__ == '__main__':
+    data = data.Data("b_lovely_landscapes.txt")
+    s1 = naive.combine_vertical_imgs_naive(data.get_v())
+    s2 = naive.make_slides_of_horz_img(data.get_h())
+    print len(s1)
+    slides = s1 + s2
+    run_sa(slides)
