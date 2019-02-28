@@ -4,3 +4,4 @@ hashcode
 *.iml
 *.idea
 *.txt
+*.pyc

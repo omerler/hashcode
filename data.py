@@ -38,6 +38,8 @@ class Data:
     def _init_input(self, source_file):
         self.v_images = []
         self.h_images = []
+        self._tags = set()
+        
         with open(source_file, 'r') as f:
             for i, line in enumerate(f.readlines()):
                 data = line.split()
@@ -46,11 +48,14 @@ class Data:
                     continue
                 orientation = data[0]
                 cur_tags = set(data[2:])
+                self._tags.update(cur_tags)
                 cur_img = Img(orientation, cur_tags, i - 1)
                 if orientation == H:
                     self.h_images.append(cur_img)
                 else:
                     self.v_images.append(cur_img)
+                    
+        print(len(self._tags))
     
     def get_v(self):
         return copy.copy(self.v_images)
@@ -60,10 +65,10 @@ class Data:
 
     def dump(self, solution, output_path=None):
         lines = []
-        lines.append(str(len(solution)))
+        lines.append(str(len(solution)) + '\n')
         for slide in solution:
             indices = slide.get_indices()
-            lines.append(' '.join([str(n) for n in indices]))
+            lines.append(' '.join([str(n) for n in indices]) + '\n')
         with open(output_path if output_path else self._output_path, 'w') as f:
             f.writelines(lines)
 
@@ -105,10 +110,18 @@ class Data:
     #
 
 # --------------------------------------- Run -------------------------------------
-        
+
 if __name__ == '__main__':
-    source_file = 'a_example.txt'
-    data = Data(source_file)
+    a = 'a_example.txt'
+    b = 'b_lovely_landscapes.txt'
+    c = 'c_memorable_moments.txt'
+    d = 'd_pet_pictures.txt'
+    e = 'e_shiny_selfies.txt'
+    data = Data(a)
+    data = Data(b)
+    data = Data(c)
+    data = Data(d)
+    data = Data(e)
 #     print(data.get(1, 1))
 #     print(data.get(2, 1))
 #     data.show(title='our data is beautiful', save=True)
