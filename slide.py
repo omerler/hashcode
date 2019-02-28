@@ -7,15 +7,20 @@ class Slide:
             assert s1.orientation == s2.orientation == V
             self._tags = s1.tags.union(s2.tags)
             self._n = 2
+            self._indices = [s1.i,s2.i]
         else:
             assert (s1 is not None)
             self._tags = s1.tags
             self._n = 1
+            self._indices = [s1.i]
         self._s1 = s1
         self._s2 = s2
-    
+        
     def get_imgs(self):
         return (self._s1, self._s2)
+    
+    def get_indices(self):
+        return self._indices
     
     def get_img1(self):
         return self._s1

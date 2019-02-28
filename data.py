@@ -12,7 +12,7 @@
 # import                                          sklearn
 # import                                          pyaudio
 # import                                          plotly
-# import                                          time, datetime
+import                                          time, datetime
 # import                                          keras
 import copy
 from slide import *
@@ -22,12 +22,17 @@ H = 'H'
 V = 'V'
             
 class Data:
+    
     def __init__(self, source_file, sep=' ', output=None):
         # self._sep = sep
         self._verticals = []
         self._orizontals = []
         self._init_input(source_file)
-        self._output_path = output
+        if output:
+            self._output_path = output
+        else:
+            cur_time = datetime.datetime.fromtimestamp(time.time())
+            self._output_path = 'output_{}'.format(cur_time.strftime('%H:%M:%S'))
         self._output_data = []
         
     def _init_input(self, source_file):
@@ -41,7 +46,7 @@ class Data:
                     continue
                 orientation = data[0]
                 cur_tags = set(data[2:])
-                cur_img = Img(orientation, cur_tags)
+                cur_img = Img(orientation, cur_tags, i - 1)
                 if orientation == H:
                     self.h_images.append(cur_img)
                 else:
@@ -53,8 +58,16 @@ class Data:
     def get_h(self):
         return copy.copy(self.h_images)
 
+    def dump(self, solution, output_path=None):
+        lines = []
+        lines.append(str(len(solution)))
+        for slide in solution:
+            indices = slide.get_indices()
+            lines.append(' '.join(indices))
+        with open(output_path if output_path else self._output_path, 'w') as f:
+            f.writelines(lines)
 
-                
+
         # self._data_array = pd.read_csv(source_file, sep=self._sep, header=None).values
         #
     # def show(self, title='', save=False, show_values=False):
@@ -90,12 +103,6 @@ class Data:
     # def add_solution_line(self, line_str):
     #     self._output_data.append(line_str)
     #
-    # def dump(self, output_path=None, output_data=None):
-    #     if not output_path and not self._output_path:
-    #         raise ValueError('no output file defined')
-    #     with open(output_path if output_path else self._output_path, 'w') as f:
-    #         for data_line in output_data if output_data else self._output_data:
-    #             f.write(data_line + '\n')
 
 # --------------------------------------- Run -------------------------------------
         

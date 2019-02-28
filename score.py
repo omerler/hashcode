@@ -4,6 +4,9 @@ from data import *
 
 class score:
     
+    def __init__(self):
+        pass
+    
     def score_two(self, s1, s2):
         s1_tags = s1.tags()
         s2_tags = s2.tags()
