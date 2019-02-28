@@ -5,7 +5,7 @@ from slide import *
 def combine_vertical_imgs_naive(vert_imgs):
     """ Get a list of vertical_imgs and return a list of slides"""
     slides = []
-    for i in range(vert_imgs/2):
+    for i in range(len(vert_imgs)/2):
         slides.append(Slide(vert_imgs(2*i),vert_imgs(2*i+1)))
     return slides
 def combine_vertical_imgs_diver(vert_imgs):
