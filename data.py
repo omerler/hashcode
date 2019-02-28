@@ -2,8 +2,8 @@
 
 # --------------------------------------- Imports -------------------------------------
 
-# import                                          numpy as np
-# import                                          pandas as pd
+import                                          numpy as np
+import                                          pandas as pd
 # import                                          matplotlib.pyplot as plt
 # from matplotlib.ticker import                   MaxNLocator
 # import                                          pickle
@@ -56,7 +56,14 @@ class Data:
                     self.v_images.append(cur_img)
                     
         print(len(self._tags))
-    
+        tags_list = list(self._tags)
+        # self.tags_dict = {key:i for i, key in enumerate(self._tags)}
+        all_images = self.h_images + self.v_images
+        for cur_img in all_images:
+            cur_tags = cur_img.tags
+            vec = np.array([tag in cur_tags for tag in tags_list])
+            cur_img.set_vec(vec)
+
     def get_v(self):
         return copy.copy(self.v_images)
 

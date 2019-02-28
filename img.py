@@ -19,3 +19,10 @@ class Img:
     
     def tags(self):
         return copy.copy(self.tags)
+
+    def set_vec(self, vec):
+        self.vec = vec
+    
+    def get_vec(self):
+        return self.vec
+        
