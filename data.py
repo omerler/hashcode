@@ -31,7 +31,8 @@ class Data:
         self._output_data = []
         
     def _init_input(self, source_file):
-        self.images = []
+        self.v_images = []
+        self.h_images = []
         with open(source_file, 'r') as f:
             for i, line in enumerate(f.readlines()):
                 data = ' '.split(line)
@@ -41,9 +42,19 @@ class Data:
                 orientation = data[0]
                 cur_tags = set(data[2:])
                 cur_img = Img(orientation, cur_tags)
-                self.images.append(cur_img)
+                if orientation == H:
+                    self.h_images.append(cur_img)
+                else:
+                    self.v_images.append(cur_img)
+    
+    def get_v(self):
+        return copy.copy(self.v_images)
+
+    def get_h(self):
+        return copy.copy(self.h_images)
+
+
                 
-    def score
         # self._data_array = pd.read_csv(source_file, sep=self._sep, header=None).values
         #
     # def show(self, title='', save=False, show_values=False):
@@ -88,12 +99,12 @@ class Data:
 
 # --------------------------------------- Run -------------------------------------
         
-if __name__ == '__main__':
-    source_file = 'data_example.txt'
-    data = Data(source_file)
-    print(data.get(1, 1))
-    print(data.get(2, 1))
-    data.show(title='our data is beautiful', save=True)
-    data.add_solution_line('1: 2, 3')
-    data.add_solution_line('3: 4, 4')
-    data.dump('test_output.txt')
+# if __name__ == '__main__':
+#     source_file = 'data_example.txt'
+#     data = Data(source_file)
+#     print(data.get(1, 1))
+#     print(data.get(2, 1))
+#     data.show(title='our data is beautiful', save=True)
+#     data.add_solution_line('1: 2, 3')
+#     data.add_solution_line('3: 4, 4')
+#     data.dump('test_output.txt')
