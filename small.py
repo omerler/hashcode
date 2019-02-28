@@ -4,7 +4,7 @@ SA_RANDOM_ITERATIONS = 50
 Tmin = 0.001
 alpha = 0.995
 initial_p = 0.95
-
+erez
 def probability(T, energy):
     debug = np.exp(-energy / T)
     return random.random() < np.exp(-energy/T)
